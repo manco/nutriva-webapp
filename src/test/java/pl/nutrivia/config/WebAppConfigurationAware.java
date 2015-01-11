@@ -13,24 +13,26 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @WebAppConfiguration
 @ContextConfiguration(classes = {
         ApplicationConfig.class,
-        EmbeddedDataSourceConfig.class,
-        JpaConfig.class,
+//        EmbeddedDataSourceConfig.class,
+//        JpaConfig.class,
   //      NoCsrfSecurityConfig.class,
         WebMvcConfig.class
 })
 public abstract class WebAppConfigurationAware {
 
-    @Autowired
-    protected WebApplicationContext wac;
-    protected MockMvc mockMvc;
+    @Autowired private WebApplicationContext wac;
+    private MockMvc mockMvc;
 
     @Before
     public void before() {
-        this.mockMvc = webAppContextSetup(this.wac).build();
+        mockMvc = webAppContextSetup(wac).build();
     }
 
+    protected final MockMvc getMockMvc() {
+        return mockMvc;
+    }
 }

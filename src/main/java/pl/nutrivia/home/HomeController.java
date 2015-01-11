@@ -8,7 +8,6 @@ import pl.nutrivia.nutriparser.dto.Mineral;
 import pl.nutrivia.nutriparser.dto.ProductDto;
 import pl.nutrivia.nutriparser.dto.Vitamin;
 
-//TODO oddzielic bloat z quickstartu od tego, co faktycznie jest uzywane w runtime
 //TODO uprościć nutriparser - wywalić enuma Vitamin, przenieść to do nutrivia webapp (DRY!)
 //TODO zmienić nutrivia-webapp na nutrivia-core z restem.
 //TODO mockmvc unit test czy jest json
