@@ -25,8 +25,8 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
 //    private static final String MESSAGE_SOURCE = "/WEB-INF/i18n/messages";
 //    private static final String VIEWS = "/WEB-INF/views/";
 
-    private static final String RESOURCES_LOCATION = "/resources/";
-    private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
+//    private static final String RESOURCES_LOCATION = "/resources/";
+//    private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
 
     @Override
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
@@ -91,15 +91,15 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
 //        return validator;
 //    }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
-    }
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
+//    }
+//
+//    @Override
+//    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+//        configurer.enable();
+//    }
 
 //    /**
 //     * Handles favicon.ico requests assuring no <code>404 Not Found</code> error is returned.
