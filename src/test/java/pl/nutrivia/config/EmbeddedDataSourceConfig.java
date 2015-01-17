@@ -12,7 +12,6 @@ import javax.sql.DataSource;
  * The data source config that can be used in integration tests.
  */
 @Configuration
-@Profile("test")
 public class EmbeddedDataSourceConfig {
 
     @Bean
