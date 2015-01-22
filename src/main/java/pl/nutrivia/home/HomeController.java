@@ -14,14 +14,8 @@ import java.util.List;
 @RestController
 public class HomeController {
 
-	//@PersistenceContext private EntityManager entityManager;
-
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public Carbo index() {
 		return new Carbo(Mass.g(13));
 	}
-
-	//private List<Product> findAll() {
-//		return entityManager.createQuery("from Product", Product.class).getResultList();
-	//}
 }

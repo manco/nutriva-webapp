@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import pl.nutrivia.config.ApplicationConfig;
+import pl.nutrivia.config.DbTestWithRollback;
 import pl.nutrivia.config.EmbeddedDataSourceConfig;
 import pl.nutrivia.config.JpaConfig;
 
@@ -18,15 +19,7 @@ import javax.transaction.Transactional;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-@ContextConfiguration(classes = {
-        ApplicationConfig.class,
-        EmbeddedDataSourceConfig.class,
-        JpaConfig.class
-})
-@Transactional
-@TestExecutionListeners(listeners = {TransactionalTestExecutionListener.class, DependencyInjectionTestExecutionListener.class})
-@RunWith(SpringJUnit4ClassRunner.class)
-public class ProductTest {
+public class ProductTest extends DbTestWithRollback {
 
 
     //TODO włączyć debugowanie zapytań
