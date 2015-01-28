@@ -3,6 +3,8 @@ package pl.nutrivia.domain;
 import com.google.common.annotations.VisibleForTesting;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -10,38 +12,43 @@ import java.util.stream.Stream;
 @Entity
 public class Product extends AbstractEntity implements HasCalories {
 
-    //cena lub ceny
+    //TODO cena lub ceny
     private Integer ig;
-    @AttributeOverrides(@AttributeOverride(name = "ug", column = @Column(name = "protein_ug")))
+    @AttributeOverrides(@AttributeOverride(name = "mass.ug", column = @Column(name = "protein_ug")))
     private Protein protein;
-    @AttributeOverrides(@AttributeOverride(name = "ug", column = @Column(name = "fat_ug")))
+    @AttributeOverrides(@AttributeOverride(name = "mass.ug", column = @Column(name = "fat_ug")))
     private Fat fat;
-    @AttributeOverrides(@AttributeOverride(name = "ug", column = @Column(name = "carbo_ug")))
+    @AttributeOverrides(@AttributeOverride(name = "mass.ug", column = @Column(name = "carbo_ug")))
     private Carbo carbo;
     @AttributeOverrides(@AttributeOverride(name = "ug", column = @Column(name = "cholesterol_ug")))
     private Mass cholesterol;
     @AttributeOverrides(@AttributeOverride(name = "ug", column = @Column(name = "fiber_ug")))
     private Mass fiber;
-    //minerals from parser + pomyśleć o jednostkach
-    //vitamines from parser
+
+//    @ElementCollection
+//    @JoinTable(name="product_vitamines", joinColumns=@JoinColumn(name=AbstractEntity.C_ID))
+//    @MapKeyColumn (name="vitamin")
+//    @Column
+//    private Map<Vitamin, Mass> vitamines;
+
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    private Map<Mineral, Mass> minerals;
 
     private Product() {}
-
-    @VisibleForTesting public Product(Integer ig, Protein protein, Fat fat, Carbo carbo) {
-        this.ig = ig;
+//
+    @VisibleForTesting public Product(Protein protein, Fat fat, Carbo carbo, Mass cholesterol, Mass fiber) {
         this.protein = protein;
         this.fat = fat;
         this.carbo = carbo;
+        this.cholesterol = cholesterol;
+        this.fiber = fiber;
     }
+
 
     @Override
-    public double getCalories() {
+    public BigDecimal getCalories() {
         //TODO czy uwzględniać fiber?
-        return Stream.of(fat, protein, carbo).mapToDouble(Nutrition::getCalories).sum();
-    }
-
-    public Optional<Integer> getIg() {
-        return Optional.ofNullable(ig);
+        return Stream.of(fat, protein, carbo).map(Nutrition::getCalories).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public Protein getProtein() {
@@ -56,11 +63,15 @@ public class Product extends AbstractEntity implements HasCalories {
         return carbo;
     }
 
-    public Mass getCholesterol() {
-        return cholesterol;
+    public Optional<Integer> getIg() {
+        return Optional.ofNullable(ig);
     }
 
-    public Mass getFiber() {
-        return fiber;
+    public Optional<Mass> getCholesterol() {
+        return Optional.ofNullable(cholesterol);
+    }
+
+    public Optional<Mass> getFiber() {
+        return Optional.ofNullable(fiber);
     }
 }

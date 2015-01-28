@@ -1,5 +1,8 @@
 package pl.nutrivia.domain;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Fat extends Nutrition {
 
     public Fat() {
