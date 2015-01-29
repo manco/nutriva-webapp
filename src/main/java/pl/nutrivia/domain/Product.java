@@ -4,6 +4,8 @@ import com.google.common.annotations.VisibleForTesting;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -25,17 +27,14 @@ public class Product extends AbstractEntity implements HasCalories {
     @AttributeOverrides(@AttributeOverride(name = "ug", column = @Column(name = "fiber_ug")))
     private Mass fiber;
 
-//    @ElementCollection
-//    @JoinTable(name="product_vitamines", joinColumns=@JoinColumn(name=AbstractEntity.C_ID))
-//    @MapKeyColumn (name="vitamin")
-//    @Column
-//    private Map<Vitamin, Mass> vitamines;
+    @ElementCollection
+    private Map<Vitamin, Mass> vitamines = new EnumMap<>(Vitamin.class);
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    private Map<Mineral, Mass> minerals;
+    @ElementCollection
+    private Map<Mineral, Mass> minerals = new EnumMap<>(Mineral.class);
 
     private Product() {}
-//
+
     @VisibleForTesting public Product(Protein protein, Fat fat, Carbo carbo, Mass cholesterol, Mass fiber) {
         this.protein = protein;
         this.fat = fat;
@@ -73,5 +72,44 @@ public class Product extends AbstractEntity implements HasCalories {
 
     public Optional<Mass> getFiber() {
         return Optional.ofNullable(fiber);
+    }
+
+    @VisibleForTesting Map<Vitamin, Mass> getVitamines() {
+        return vitamines;
+    }
+
+    @VisibleForTesting Map<Mineral, Mass> getMinerals() {
+        return minerals;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private final Product entity = new Product();
+
+        public Builder withVitamin(Vitamin vitamin, Mass mass) {
+            entity.vitamines.put(vitamin, mass);
+            return this;
+        }
+
+        public Builder withMineral(Mineral mineral, Mass mass) {
+            entity.minerals.put(mineral, mass);
+            return this;
+        }
+
+        public Builder withCholesterol(Mass value) {
+            entity.cholesterol = value;
+            return this;
+        }
+
+        public Product build(Protein protein, Fat fat, Carbo carbo) {
+            entity.protein = protein;
+            entity.fat = fat;
+            entity.carbo = carbo;
+            return entity;
+        }
     }
 }

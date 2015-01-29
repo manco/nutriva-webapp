@@ -1,5 +1,6 @@
 package pl.nutrivia.domain;
 
+import org.fest.assertions.data.MapEntry;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -38,11 +39,19 @@ public class ProductTest extends DbTestWithRollback {
         //then
         assertThat(loadedProduct.getCholesterol().get()).isEqualTo(Mass.g(77));
         assertThat(loadedProduct.getProtein()).isNotNull();
+        assertThat(loadedProduct.getVitamines()).contains(MapEntry.entry(Vitamin.B3, Mass.g(1)));
+
+        assertThat(loadedProduct.getMinerals()).contains(MapEntry.entry(Mineral.Ca, Mass.g(3)));
         assertThat(loadedProduct.getCalories()).isEqualTo(BigDecimal.valueOf(12 * 4 + 3 * 9 + 166 * 4));
     }
 
     private static Product createAndSaveProduct(final EntityManager entityManager) {
-        final Product product = new Product(new Protein(Mass.g(12)), new Fat(Mass.g(3)), new Carbo(Mass.g(166)), Mass.g(77), Mass.g(3));
+        final Product product = Product.builder()
+                .withCholesterol(Mass.g(77))
+                .withVitamin(Vitamin.B3, Mass.g(1))
+                .withMineral(Mineral.Ca, Mass.g(3))
+                .build(new Protein(Mass.g(12)), new Fat(Mass.g(3)), new Carbo(Mass.g(166)))
+                ;
         entityManager.persist(product);
         entityManager.flush();
         entityManager.clear();

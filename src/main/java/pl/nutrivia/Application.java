@@ -1,7 +1,7 @@
 package pl.nutrivia;
 
-//TODO uprościć nutriparser - wywalić enuma Vitamin, przenieść to do nutrivia webapp (DRY!)
-//TODO zmienić nutrivia-webapp na nutrivia-core z restem.
-//TODO poczytać o @ActiveProfiles i @Profile
 //TODO użyć prevaylera
+//TODO zmienić nutrivia-webapp na nutrivia-core z restem
+//TODO konwerter nutriparser dto do domeny
+//TODO modul integracji z nutritrondatabase
 public interface Application {}
