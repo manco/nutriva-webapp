@@ -1,15 +1,12 @@
 package pl.nutrivia.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@MappedSuperclass
 public abstract class Nutrition implements HasMass, HasCalories, Serializable {
 
-    private Mass mass;
+    private final Mass mass;
 
-    protected Nutrition(){}
     protected Nutrition(Mass mass) {
         this.mass = mass;
     }

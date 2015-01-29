@@ -1,11 +1,8 @@
 package pl.nutrivia.domain;
 
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import java.util.Set;
 
-@Table
-public class Meal extends AbstractEntity {
+public class Meal {
 
-    @OneToMany private Set<ProductInMeal> products;
+    private Set<ProductInMeal> products;
 }

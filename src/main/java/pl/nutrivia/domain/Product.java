@@ -2,37 +2,26 @@ package pl.nutrivia.domain;
 
 import com.google.common.annotations.VisibleForTesting;
 
-import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@Table
-@Entity
-public class Product extends AbstractEntity implements HasCalories {
+public final class Product implements Serializable, HasCalories {
 
     //TODO cena lub ceny
     private String name;
     private Integer ig;
-    @AttributeOverrides(@AttributeOverride(name = "mass.ug", column = @Column(name = "protein_ug")))
     private Protein protein;
-    @AttributeOverrides(@AttributeOverride(name = "mass.ug", column = @Column(name = "fat_ug")))
     private Fat fat;
-    @AttributeOverrides(@AttributeOverride(name = "mass.ug", column = @Column(name = "carbo_ug")))
     private Carbo carbo;
-    @AttributeOverrides(@AttributeOverride(name = "ug", column = @Column(name = "cholesterol_ug")))
     private Mass cholesterol;
-    @AttributeOverrides(@AttributeOverride(name = "ug", column = @Column(name = "fiber_ug")))
     private Mass fiber;
 
-    @ElementCollection
-    private Map<Vitamin, Mass> vitamines = new EnumMap<>(Vitamin.class);
-
-    @ElementCollection
-    private Map<Mineral, Mass> minerals = new EnumMap<>(Mineral.class);
+    private final Map<Vitamin, Mass> vitamines = new EnumMap<>(Vitamin.class);
+    private final Map<Mineral, Mass> minerals = new EnumMap<>(Mineral.class);
 
     private Product() {}
 

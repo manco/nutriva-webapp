@@ -1,12 +1,6 @@
 package pl.nutrivia.domain;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 public class Carbo extends Nutrition {
-
-    public Carbo() {
-    }
 
     public Carbo(Mass mass) {
         super(mass);

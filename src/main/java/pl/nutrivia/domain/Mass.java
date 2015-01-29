@@ -2,19 +2,15 @@ package pl.nutrivia.domain;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.util.Objects;
 
-@Embeddable
 public class Mass implements Serializable {
 
     private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
 
-    @Column
     private BigInteger ug = BigInteger.ZERO;
 
     public Mass() {}

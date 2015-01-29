@@ -5,11 +5,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pl.nutrivia.domain.Carbo;
 import pl.nutrivia.domain.Mass;
-import pl.nutrivia.domain.Product;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @RestController
 public class HomeController {

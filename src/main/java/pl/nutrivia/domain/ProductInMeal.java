@@ -1,12 +1,10 @@
 package pl.nutrivia.domain;
 
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.io.Serializable;
 
-@Table
-public class ProductInMeal extends AbstractEntity {
+public class ProductInMeal implements Serializable {
 
-    @ManyToOne private Product product;
+    private Product product;
     private Mass mass;
 
 
