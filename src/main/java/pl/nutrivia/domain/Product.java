@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 public class Product extends AbstractEntity implements HasCalories {
 
     //TODO cena lub ceny
+    private String name;
     private Integer ig;
     @AttributeOverrides(@AttributeOverride(name = "mass.ug", column = @Column(name = "protein_ug")))
     private Protein protein;
@@ -34,15 +35,6 @@ public class Product extends AbstractEntity implements HasCalories {
     private Map<Mineral, Mass> minerals = new EnumMap<>(Mineral.class);
 
     private Product() {}
-
-    @VisibleForTesting public Product(Protein protein, Fat fat, Carbo carbo, Mass cholesterol, Mass fiber) {
-        this.protein = protein;
-        this.fat = fat;
-        this.carbo = carbo;
-        this.cholesterol = cholesterol;
-        this.fiber = fiber;
-    }
-
 
     @Override
     public BigDecimal getCalories() {
@@ -72,6 +64,10 @@ public class Product extends AbstractEntity implements HasCalories {
 
     public Optional<Mass> getFiber() {
         return Optional.ofNullable(fiber);
+    }
+
+    public String getName() {
+        return name;
     }
 
     @VisibleForTesting Map<Vitamin, Mass> getVitamines() {
@@ -105,7 +101,8 @@ public class Product extends AbstractEntity implements HasCalories {
             return this;
         }
 
-        public Product build(Protein protein, Fat fat, Carbo carbo) {
+        public Product build(String name, Protein protein, Fat fat, Carbo carbo) {
+            entity.name = name;
             entity.protein = protein;
             entity.fat = fat;
             entity.carbo = carbo;

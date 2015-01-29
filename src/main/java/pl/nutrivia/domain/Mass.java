@@ -18,8 +18,8 @@ public class Mass implements Serializable {
     private BigInteger ug = BigInteger.ZERO;
 
     public Mass() {}
-    public Mass(BigDecimal ug) {
-        this.ug = ug.toBigInteger();
+    public Mass(BigInteger ug) {
+        this.ug = ug;
     }
 
     public BigInteger ug() {
@@ -38,8 +38,8 @@ public class Mass implements Serializable {
         return new Mass(g2ug(BigDecimal.valueOf(amount)));
     }
 
-    private static BigDecimal g2ug(BigDecimal amount) {
-        return HUNDRED.multiply(HUNDRED).multiply(amount);
+    private static BigInteger g2ug(BigDecimal amount) {
+        return HUNDRED.multiply(HUNDRED).multiply(amount).toBigInteger();
     }
 
     @Override
